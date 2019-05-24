@@ -808,48 +808,53 @@ restart_after_removal:
     }
 }
 
+char *rrdhost_update_system_info_variable_value(char *old_value, char *new_value)
+{
+	freez(old_value);
+	return new_value;
+}
 // ----------------------------------------------------------------------------
 // RRDHOST - set system info from environment variables
 
 int rrdhost_set_system_info_variable(struct rrdhost_system_info *system_info, char *name, char *value) {
     if(!strcmp(name, "NETDATA_SYSTEM_OS_NAME")){
-        system_info->os_name = strdupz(value);
+        system_info->os_name = system_info->os_name ? rrdhost_update_system_info_variable_value(system_info->os_name, value) : strdupz(value);
     }
     else if(!strcmp(name, "NETDATA_SYSTEM_OS_ID")){
-        system_info->os_id = strdupz(value);
+        system_info->os_id = system_info->os_id ? rrdhost_update_system_info_variable_value(system_info->os_id, value) : strdupz(value);
     }
     else if(!strcmp(name, "NETDATA_SYSTEM_OS_ID_LIKE")){
-        system_info->os_id_like = strdupz(value);
+        system_info->os_id_like = system_info->os_id_like ? rrdhost_update_system_info_variable_value(system_info->os_id_like, value) : strdupz(value);
     }
     else if(!strcmp(name, "NETDATA_SYSTEM_OS_VERSION")){
-        system_info->os_version = strdupz(value);
+        system_info->os_version = system_info->os_version ? rrdhost_update_system_info_variable_value(system_info->os_version, value) : strdupz(value);
     }
     else if(!strcmp(name, "NETDATA_SYSTEM_OS_VERSION_ID")){
-        system_info->os_version_id = strdupz(value);
+        system_info->os_version_id = system_info->os_version_id ? rrdhost_update_system_info_variable_value(system_info->os_version_id, value) : strdupz(value);
     }
     else if(!strcmp(name, "NETDATA_SYSTEM_OS_DETECTION")){
-        system_info->os_detection = strdupz(value);
+        system_info->os_detection = system_info->os_detection ? rrdhost_update_system_info_variable_value(system_info->os_detection, value) : strdupz(value);
     }
     else if(!strcmp(name, "NETDATA_SYSTEM_KERNEL_NAME")){
-        system_info->kernel_name = strdupz(value);
+        system_info->kernel_name = system_info->kernel_name ? rrdhost_update_system_info_variable_value(system_info->kernel_name, value) : strdupz(value);
     }
     else if(!strcmp(name, "NETDATA_SYSTEM_KERNEL_VERSION")){
-        system_info->kernel_version = strdupz(value);
+        system_info->kernel_version = system_info->kernel_version ? rrdhost_update_system_info_variable_value(system_info->kernel_version, value) : strdupz(value);
     }
     else if(!strcmp(name, "NETDATA_SYSTEM_ARCHITECTURE")){
-        system_info->architecture = strdupz(value);
+        system_info->architecture = system_info->architecture ? rrdhost_update_system_info_variable_value(system_info->architecture, value) : strdupz(value);
     }
     else if(!strcmp(name, "NETDATA_SYSTEM_VIRTUALIZATION")){
-        system_info->virtualization = strdupz(value);
+        system_info->virtualization = system_info->virtualization ? rrdhost_update_system_info_variable_value(system_info->virtualization, value) : strdupz(value);
     }
     else if(!strcmp(name, "NETDATA_SYSTEM_VIRT_DETECTION")){
-        system_info->virt_detection = strdupz(value);
+        system_info->virt_detection = system_info->virt_detection ? rrdhost_update_system_info_variable_value(system_info->virt_detection, value) : strdupz(value);
     }
     else if(!strcmp(name, "NETDATA_SYSTEM_CONTAINER")){
-        system_info->container = strdupz(value);
+        system_info->container = system_info->container ? rrdhost_update_system_info_variable_value(system_info->container, value) : strdupz(value);
     }
     else if(!strcmp(name, "NETDATA_SYSTEM_CONTAINER_DETECTION")){
-        system_info->container_detection = strdupz(value);
+        system_info->container_detection = system_info->container_detection ? rrdhost_update_system_info_variable_value(system_info->container_detection, value) : strdupz(value);
     }
     else return 1;
 
