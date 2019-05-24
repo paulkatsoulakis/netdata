@@ -1174,7 +1174,7 @@ int main(int argc, char **argv) {
     // initialize rrd, registry, health, rrdpush, etc.
 
     rrd_init(netdata_configured_hostname, system_info);
-    rrdhost_system_info_free(system_info);
+
     // ------------------------------------------------------------------------
     // enable log flood protection
 
@@ -1199,6 +1199,10 @@ int main(int argc, char **argv) {
     info("netdata initialization completed. Enjoy real-time performance monitoring!");
     netdata_ready = 1;
     if (get_system_info(system_info) == 0) send_statistics("START","-", "-");
+
+    // ------------------------------------------------------------------------
+    // We no longer need system info object here, free it up
+    rrdhost_system_info_free(system_info);
 
     // ------------------------------------------------------------------------
     // unblock signals
