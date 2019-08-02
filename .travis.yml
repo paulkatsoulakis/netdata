@@ -65,11 +65,11 @@ stages:
 
     # Build DEB packages under special conditions
   - name: Package ubuntu/* and debian/*
-    if: type != cron AND type != pull_request AND branch = master
+    if: type != cron AND type != pull_request AND branch = knatsakis-knatsakis-travis-ci
 
     # Build RPM packages under special conditions
   - name: Package centos, fedora and opensuse
-    if: type != cron AND type != pull_request AND branch = master
+    if: type != cron AND type != pull_request AND branch = knatsakis-knatsakis-travis-ci
 
 
 
