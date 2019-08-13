@@ -270,7 +270,7 @@ install -m 4750 -p freeipmi.plugin "${RPM_BUILD_ROOT}%{_libexecdir}/%{name}/plug
 
 # ###########################################################
 # Install apps.plugin
-install -m 4750 -p apps.plugin "${RPM_BUILD_ROOT}%{_libexecdir}/%{name}/plugins.d/apps.plugin"
+install -m 0750 -p apps.plugin "${RPM_BUILD_ROOT}%{_libexecdir}/%{name}/plugins.d/apps.plugin"
 
 # ###########################################################
 # Install perf.plugin
@@ -422,7 +422,7 @@ rm -rf "${RPM_BUILD_ROOT}"
 
 %{_libdir}/%{name}
 
-%defattr(0755,netdata,netdata,0755)
+%defattr(0755,root,root,0755)
 %{_libexecdir}/%{name}
 %{_sbindir}/%{name}
 %{_sysconfdir}/%{name}/edit-config
@@ -434,22 +434,21 @@ rm -rf "${RPM_BUILD_ROOT}"
 %dir %{_libexecdir}/%{name}/plugins.d
 %dir %{_libexecdir}/%{name}/node.d
 
-%caps(cap_dac_read_search,cap_sys_ptrace=ep) %attr(0550,root,netdata) %{_libexecdir}/%{name}/plugins.d/apps.plugin
+%caps(cap_dac_read_search,cap_sys_ptrace=ep) %attr(0750,root,netdata) %{_libexecdir}/%{name}/plugins.d/apps.plugin
 
 %if %{with netns}
 # cgroup-network detects the network interfaces of CGROUPs
 # it must be able to use setns() and run cgroup-network-helper.sh as root
 # the helper script reads /proc/PID/fdinfo/* files, runs virsh, etc.
-%caps(cap_setuid=ep) %attr(4550,root,netdata) %{_libexecdir}/%{name}/plugins.d/cgroup-network
-%attr(0550,root,root) %{_libexecdir}/%{name}/plugins.d/cgroup-network-helper.sh
+%attr(4750,root,netdata) %{_libexecdir}/%{name}/plugins.d/cgroup-network
+%attr(0550,root,netdata) %{_libexecdir}/%{name}/plugins.d/cgroup-network-helper.sh
 %endif
 
 # perf plugin
-%caps(cap_setuid=ep) %attr(4750,root,netdata) %{_libexecdir}/%{name}/plugins.d/perf.plugin
-
+%attr(4750,root,netdata) %{_libexecdir}/%{name}/plugins.d/perf.plugin
 
 # freeipmi files
-%caps(cap_setuid=ep) %attr(4550,root,netdata) %{_libexecdir}/%{name}/plugins.d/freeipmi.plugin
+%attr(4750,root,netdata) %{_libexecdir}/%{name}/plugins.d/freeipmi.plugin
 %dir %{_datadir}/%{name}
 
 %defattr(0750,netdata,netdata,0755)
