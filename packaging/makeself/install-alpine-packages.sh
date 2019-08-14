@@ -12,6 +12,7 @@ apk update
 
 # Add required APK packages
 apk add --no-cache \
+    alpine-sdk \
     bash \
     wget \
     curl \
@@ -26,13 +27,13 @@ apk add --no-cache \
     libtool \
     pkgconfig \
     util-linux-dev \
-    openssl-dev \
     gnutls-dev \
     zlib-dev \
     libmnl-dev \
     libnetfilter_acct-dev \
     libuv-dev \
     lz4-dev \
+    libuuid \
     openssl-dev \
     || exit 1
 
